@@ -13,6 +13,20 @@ namespace WebApplication1.DAL.Context
         public DbSet<Contact> Contacts {  get; set; }
         public DbSet<Feature> Features{  get; set; }
         public DbSet<Scrap>Scraps  {  get; set; }
-        public DbSet<Servicess> Servicesses {  get; set; }
+        public DbSet<ScrapImg> ScrapImgs { get; set; }
+
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Scrap>()
+                .HasMany(s => s.ScrapImgs)
+                .WithOne(si => si.Scrap)
+                .HasForeignKey(si => si.ScrapId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+     
     }
 }

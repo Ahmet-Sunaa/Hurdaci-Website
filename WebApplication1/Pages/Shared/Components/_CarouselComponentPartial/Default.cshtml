@@ -1,11 +1,11 @@
 ﻿@model List<WebApplication1.DAL.Entities.Feature>
 
-<div class="container-fluid p-0 pb-5">
-    <div class="owl-carousel header-carousel position-relative">
+<div class="container-fluid p-0 pb-3">
+    <div class="owl-carousel header-carousel position-relative" style="height:50rem;">
         @foreach (var item in Model)
         {
             <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="@item.Url" alt="">
+                <img class="img-fluid" style="height:50rem;" src="@item.Url" alt="">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(53, 53, 53, .7);">
                     <div class="container">
                         <div class="row justify-content-center">

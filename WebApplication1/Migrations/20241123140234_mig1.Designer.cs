@@ -11,7 +11,7 @@ using WebApplication1.DAL.Context;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(HurdaciContext))]
-    [Migration("20241122115243_mig1")]
+    [Migration("20241123140234_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -143,17 +143,39 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUrl")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ScrapId");
 
                     b.ToTable("Scraps");
+                });
+
+            modelBuilder.Entity("WebApplication1.DAL.Entities.ScrapImg", b =>
+                {
+                    b.Property<int>("ScrapImgId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScrapImgId"));
+
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ScrapId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ScrapImgId");
+
+                    b.HasIndex("ScrapId");
+
+                    b.ToTable("ScrapImgs");
                 });
 
             modelBuilder.Entity("WebApplication1.DAL.Entities.Servicess", b =>
@@ -179,6 +201,22 @@ namespace WebApplication1.Migrations
                     b.HasKey("ServicessId");
 
                     b.ToTable("Servicesses");
+                });
+
+            modelBuilder.Entity("WebApplication1.DAL.Entities.ScrapImg", b =>
+                {
+                    b.HasOne("WebApplication1.DAL.Entities.Scrap", "Scrap")
+                        .WithMany("ScrapImgs")
+                        .HasForeignKey("ScrapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Scrap");
+                });
+
+            modelBuilder.Entity("WebApplication1.DAL.Entities.Scrap", b =>
+                {
+                    b.Navigation("ScrapImgs");
                 });
 #pragma warning restore 612, 618
         }
