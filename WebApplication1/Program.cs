@@ -14,13 +14,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+//app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Default}/{action=Index}/{id?}");  // Varsayýlan rota, Default/Index
 
 app.Run();
