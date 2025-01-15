@@ -27,31 +27,6 @@ Bu proje, Ahmet Suna ve Hilal Nur Tınas tarafından birlikte geliştirilen bir 
 
 ---
 
-#### **Kurulum Adımları**
-1. **Depoyu Klonlayın**  
-   ```bash
-   git clone <repository-link>
-   ```
-
-2. **Gerekli Bağımlılıkları Yükleyin**  
-   .NET Core SDK yüklü olduğundan emin olun ve terminalde şu komutları çalıştırın:  
-   ```bash
-   dotnet restore
-   dotnet build
-   ```
-
-3. **Uygulamayı Çalıştırın**  
-   ```bash
-   dotnet run
-   ```
-
-4. **Tarayıcıda Görüntüleyin**  
-   ```bash
-   http://localhost:5000
-   ```
-
----
-
 #### **Proje Yapısı**
 - **Ana Sayfa**: Müşterinin satın aldığı hurdalar hakkında olan kısımlar ve müşterinin işletmesi ile ilgili kısımlar.
 - **Projeler**: Tamamlanmış projeler ve açıklamalar.
