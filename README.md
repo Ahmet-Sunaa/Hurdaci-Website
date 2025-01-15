@@ -3,7 +3,7 @@
 ---
 
 #### **Proje Açıklaması**
-Bu proje, Ahmet Suna ve Hilal Nur Tınas tarafından birlikte geliştirilen bir **Kişisel Portföy Web Sitesi** projesidir. Hedefimiz, profesyonel yeteneklerimizi ve projelerimizi modern ve etkili bir web sitesi ile sergilemektir. Projede hem frontend hem de backend geliştirme süreçlerine eşit katkıda bulunduk. Kullanıcı dostu, duyarlı (responsive) ve performans odaklı bir yapı sunmaktadır.
+Bu proje, Ahmet Suna ve Hilal Nur Tınas tarafından birlikte geliştirilen bir **Özel Web Sitesi** projesidir. Hedefimiz, müşterinin isteklerini göz önüne alarak etkili ve kullanıcı dostu bir websitesi oluşturmak. Kullanıcı dostu, duyarlı (responsive) ve performans odaklı bir yapı sunmaktadır.
 
 ---
 
@@ -53,10 +53,10 @@ Bu proje, Ahmet Suna ve Hilal Nur Tınas tarafından birlikte geliştirilen bir 
 ---
 
 #### **Proje Yapısı**
-- **Ana Sayfa**: Portföyün genel görünümü ve kişisel bilgiler.
+- **Ana Sayfa**: Müşterinin satın aldığı hurdalar hakkında olan kısımlar ve müşterinin işletmesi ile ilgili kısımlar.
 - **Projeler**: Tamamlanmış projeler ve açıklamalar.
 - **Hakkımızda**: Ekip üyelerinin uzmanlık alanları ve profesyonel geçmişi.
-- **İletişim**: Kullanıcıların mesaj gönderebileceği iletişim formu.
+- **İletişim**: Kullanıcıların arayabileceği ve mesaj gönderebileceği alanlar.
 
 ---
 
