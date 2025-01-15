@@ -1,0 +1,95 @@
+﻿.img-size {
+    height: 50em;
+}
+
+.img-size img {
+    object-fit: cover; /* Görsellerin kapsayıcıyı doldurmasını sağla */
+    width: 100%; /* Görüntü genişliğini kapsayıcıya uyacak şekilde ayarla */
+    height: 50em; /* İstediğiniz yükseklik */
+    object-fit: cover; /* Görüntüyü alan içinde kırparak doldur */
+    position: relative; /* Görüntüyü düzgün yerleştirmek için */
+    z-index: 1;
+}
+.img-phone-size {
+    padding-left: 3.5rem !important;
+    padding-right: 3.5rem !important;
+    padding-top: .5rem!important;
+}
+.carousel-text {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+    font-weight: bold;
+    font-size: 5rem;
+    font-family: 'Times New Roman';
+}
+.carousel-text-p {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+    font-weight: bold;
+    font-size: 3rem !important;
+    font-family: 'Times New Roman';
+}
+
+.carousel-item {
+    position: relative; /* Metinlerin resimlerin üstüne konumlandırılması için */
+}
+
+
+
+.carousel-caption {
+    position: absolute; /* Metinleri tam olarak resmin üstüne yerleştirmek için */
+    top: 80%; /* Yatayda ortalamak için */
+    left: 50% !important; /* Dikeyde ortalamak için */
+    transform: translate(-50%, -50%); /* Ortalamayı tamamlamak için */
+    z-index: 10; /* Metinlerin önde görünmesini sağlamak için */
+    color: white; /* Metin rengini beyaz yap */
+    width:50%;
+}
+
+/* Varsayılan (Masaüstü için) */
+.header-logo img {
+    max-width: 500px; /* Maksimum genişlik */
+    height: auto; /* Oran koruma */
+}
+
+/* Mobil için (768px ve altı cihazlar) */
+@media (max-width: 768px) {
+    .header-logo img {
+        max-width: 250px; /* Daha küçük boyut */
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .img-size {
+        height: 20em; /* Mobil cihazlar için carousel yüksekliği */
+    }
+    .img-size img {
+        height: 20em; /* Kapsayıcı yüksekliğini doldur */
+    }
+    .carousel-caption {
+        position: absolute; /* Metinleri tam olarak resmin üstüne yerleştirmek için */
+        left: 50%; /* Dikeyde ortalamak için */
+        transform: translate(-50%, -50%); /* Ortalamayı tamamlamak için */
+        z-index: 10; /* Metinlerin önde görünmesini sağlamak için */
+        color: white; /* Metin rengini beyaz yap */
+        width:70%;
+    }
+    .img-phone-size {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 0 !important;
+    }
+    .carousel-text {
+        font-size: 2rem !important;
+        font-family: 'Times New Roman';
+    }
+    .carousel-text-p {
+        font-size: 1.2rem !important;
+        font-family: 'Times New Roman';
+    }
+
+
+}
+

@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Admin Login Page";
+    Layout = "~/Views/LoginLayout/Index.cshtml";
+}
+<div class="container">
+    <div class="contact-form">
+        <img src="~/img/admin.jpg" class="admin-img">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <div class="txtb">
+                <input type="text" name="UserName" placeholder="Username" required>
+            </div>
+            <div class="txtb">
+                <input type="password" name="Password" placeholder="Password" required>
+            </div>
+            <button type="button" id="LoginAdminAjax" class="btn-outline">Giriş</button>
+        </form>
+        <div class="form-group">
+            <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+        </div>
+        <div class="form-group">
+            <a href="/Login/ForgotPassword" class="btn btn-link">Şifremi Unuttum?</a>
+        </div>
+    </div>
+</div>
+<style>
+    .btn-outline {
+        color: rgb(226, 19, 70);
+        outline: 0;
+        border: 2px solid currentcolor;
+        transition: 0.3s ease all;
+        background-color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 12px 25px;
+        display: inline-block;
+    }
+
+        .btn-outline:hover {
+            color: #fff;
+            border-color: transparent;
+            background-color: rgb(226, 19, 70);
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#LoginAdminAjax").click(function(e) {
+            e.preventDefault();
+
+                var formData = {
+                    UserName: $("input[name='UserName']").val(),
+                    Password: $("input[name='Password']").val(),
+                };
+
+
+            $.ajax({
+                url: '@Url.Action("LoginAdminAjax", "Login")',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = response.redirectUrl
+                    } else {
+                        $("#ajaxResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function() {
+                    // AJAX hatası
+                    $("#ajaxResponseMessage").css("color", "red").text("An error occurred while updating the experience.").show();
+                }
+            });
+        });
+    });
+</script>

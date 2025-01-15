@@ -1,45 +1,53 @@
-﻿
-@model List<WebApplication1.DAL.Entities.Scrap>
+﻿@model List<WebApplication1.DAL.Entities.Scrap>
 
 <div id="Scraps" class="container-xxl py-2">
     <div class="container">
+         @if (Model != null && Model.Any())
+         {
         <div class="text-center">
-            <h1 class="display-5 mb-5">HURDALAR</h1>
+                <h1 class="display-5 mb-3 mt-3" style="font-family: Times New Roman;">@Model[0].Title</h1>
         </div>
 
         <div class="row g-4 portfolio-container">
-            @foreach (var scrap in Model)
-            {
-                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="rounded overflow-hidden">
-                        <div id="carousel-@scrap.ScrapId" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                @foreach (var img in scrap.ScrapImgs)
-                                {
-                                    <div class="carousel-item @if (img == scrap.ScrapImgs.First()) {
-                            <text>active</text>
- }">
-                                        <img class="d-block w-100 img-limit" src="@img.ImgUrl" alt="Scrap Image">
-                                    </div>
-                                }
+           
+                @foreach (var scrap in Model)
+                {
+                    <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="rounded overflow-hidden">
+                            <div id="carousel-@scrap.ScrapId" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach (var img in scrap.ScrapImgs)
+                                    {
+                                        <div class="carousel-item @if (img == scrap.ScrapImgs.First()) { <text>active</text> }">
+                                            <img class="d-block w-100 img-limit" src="@img.ImgUrl" alt="Scrap Image">
+                                        </div>
+                                    }
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@scrap.ScrapId" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@scrap.ScrapId" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@scrap.ScrapId" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-@scrap.ScrapId" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <div class="border border-5 border-light border-top-0 p-4">
-                            <p class="text-primary fw-medium mb-2">@scrap.Name</p>
-                            <h5 class="lh-base mb-auto">@scrap.Description</h5>
+                            <div class="border border-5 border-light border-top-0 p-4">
+                                <p class="text-primary fw-medium mb-2" style="font-family: Times New Roman;">@scrap.Name</p>
+                                <h5 class="lh-base mb-auto" style="font-family: Times New Roman;">@scrap.Description</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            
+            
+          
         </div>
+        }
+        else
+        {
+            <h1>Hurda Bulunamadı</h1>
+        }
     </div>
 </div>
 

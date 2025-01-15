@@ -1,0 +1,51 @@
+﻿@model WebApplication1.DAL.Entities.Scrap
+
+@{
+	ViewData["Title"] = "CreateScrap";
+	Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Hurdalar</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Hurda Oluşturma</div>
+					</div>
+					<div class="card-body">
+
+						<form method="post">
+							
+							<div class="form-group">
+								<label for="Name">Adı</label>
+								<input type="text" name="Name" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="Description">Açıklaması</label>
+								<textarea rows="2" name="Description" class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="Title">Ana Başlık</label>
+								<input type="text" name="Title" class="form-control" placeholder="@if(Model != null) {@Model.Title}"/>
+							</div>
+							<div class="form-group mt-4">
+								<label for="ImgUrl">Resim Linki</label>
+								<input type="text" name="ImgUrl" class="form-control" />
+							</div>
+
+							<div id="imgResponseMessage" class="mt-2" style="display: none;"></div>
+							
+
+                            <button type="submit" class="btn btn-primary">Hurda Ekle</button>
+                        </form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

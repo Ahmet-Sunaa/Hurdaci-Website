@@ -1,30 +1,93 @@
 ﻿@model WebApplication1.DAL.ViewModel.FooterViewModel
-<div id="Contact" class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+
+@* <!--AIzaSyCGHTvvlAdmspXvP3DfyMwfFT1kxV-hREg apı kodu-->  *@
+
+
+<div id="Contact" class="container-fluid bg-dark text-light footer mt-5 pt-5">
     <div class="container py-5">
         <div class="row g-5">
-            
             <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">@Model.Contacts[0].Title</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>@Model.Contacts[0].Adress</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>@Model.Contacts[0].Phone</p>
-                <!--<p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>-->
-                @*
-                <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                *@
+                <h4 class="text-light mb-4" style="font-family: Times New Roman;">@Model.Contacts[0].Title</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3" style="font-family: Times New Roman;"></i>@Model.Contacts[0].Adress</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3" style="font-family: Times New Roman;"></i>@Model.Contacts[0].Phone</p>
             </div>
-            
+
             <div class="col-lg-3 col-md-6">
-                <h4 class="text-light mb-4">Hurdalar</h4>
-                @foreach(var item in Model.Scraps){
-                    <a class="btn btn-link" href="">@item.Name</a>
+                <h4 class="text-light mb-4" style="font-family: Times New Roman;">Hurdalar</h4>
+                @foreach (var item in Model.Scraps)
+                {
+                    <a class="btn btn-link" href="#Scraps" style="font-family: Times New Roman;">@item.Name</a>
                 }
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <h4 class="text-light mb-4">Harita</h4>
+
+                <button id="getDirections" class="btn-outline" style="font-family: Times New Roman;">Yol Tarifi Al</button>
+
+                <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
+
+                <!-- Yol Tarifi Al Butonu -->
                 
             </div>
         </div>
     </div>
 </div>
+<style>
+    .btn-outline {
+        color: rgb(226, 19, 70);
+        outline: 0;
+        border: 2px solid currentcolor;
+        transition: 0.3s ease all;
+        background-color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 12px 25px;
+        display: inline-block;
+    }
+
+        .btn-outline:hover {
+            color: #fff;
+            border-color: transparent;
+            background-color: rgb(226, 19, 70);
+        }
+</style>
+<script>
+    function initMap() {
+        const geocoder = new google.maps.Geocoder();
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: { lat: 39.92077, lng: 32.85411 }, // Türkiye merkez koordinatları
+        });
+
+        // Razor'dan gelen adres bilgisi
+        const address = "@Model.Contacts[0].Adress";
+
+        // Geocode ile haritada göster
+        if (address) {
+            geocoder.geocode({ address: address }, (results, status) => {
+                if (status === "OK") {
+                    const location = results[0].geometry.location;
+                    map.setCenter(location);
+                    new google.maps.Marker({
+                        map: map,
+                        position: location,
+                    });
+
+                    // Yol Tarifi Butonu Tıklama Olayı
+                    document.getElementById("getDirections").addEventListener("click", () => {
+                        const destination = `${location.lat()},${location.lng()}`;
+                        const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+                        window.open(directionsUrl, "_blank"); // Yeni sekmede aç
+                    });
+                } else {
+                    alert("Adres haritada işlenemedi: " + status);
+                }
+            });
+        }
+    }
+</script>
+
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key= YOUR APİ KEY &callback=initMap">
+</script>

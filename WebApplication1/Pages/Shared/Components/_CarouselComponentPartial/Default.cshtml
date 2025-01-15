@@ -1,25 +1,55 @@
 ﻿@model List<WebApplication1.DAL.Entities.Feature>
 
-<div class="container-fluid p-0 pb-3">
-    <div class="owl-carousel header-carousel position-relative" style="height:50rem;">
-        @foreach (var item in Model)
-        {
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" style="height:50rem;" src="@item.Url" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(53, 53, 53, .7);">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-lg-8 text-center">
-                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Hurdacı Kralı</h5>
-                                <h1 class="display-3 text-white animated slideInDown mb-4">@item.Title</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">@item.Description</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Free Quote</a>
-                            </div>
-                        </div>
+@{
+    Layout = null;
+}
+
+@if (Model != null && Model.Any()){
+    
+<div class="container-fluid img-phone-size pb-3  "> 
+
+@* <div class="container-fluid p-0 pb-3 "> *@
+    <div id = "carousel" class="carousel slide pb-3" data-bs-ride="true">
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <button type="button"
+                        data-bs-target="#carousel"
+                        data-bs-slide-to="@i"
+                        class="@(i == 0 ? "active" : "")"
+                        aria-current="@(i == 0 ? "true" : "false")"
+                        aria-label="Slide @(i + 1)">
+                </button>
+            }
+        </div>
+        <div class="carousel-inner img-size">
+            @foreach (var item in Model)
+            {
+                <div class="carousel-item @(Model.IndexOf(item) == 0 ? "active" : "") position-relative">
+                    <img src="@item.Url" class="d-block w-100 img-fluid" alt="Slide @(Model.IndexOf(item) + 1)">
+
+                    <!-- Metin içeren kısım -->
+                    <div class="carousel-caption text-center d-flex flex-column align-items-center justify-content-center">
+
+                            <h1 class="text-white carousel-text" style="margin-block-end:0;">@item.Title</h1>
+                        <p class="text-white mb-4 pb-2 carousel-text-p">@item.Description</p>
+                       
+                        
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </div>
+}

@@ -1,0 +1,150 @@
+﻿@model WebApplication1.DAL.Entities.Scrap
+@{
+    ViewData["Title"] = "UpdateScrap";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Hurdalar</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Hurda Güncelleme</div>
+                    </div>
+                    <div class="card-body">
+
+                        <form id="updateScrapForm" method="post">
+                            <div>
+                                <input type="hidden" name="ScrapId" value="@Model.ScrapId" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Name">Adı</label>
+                                <input type="text" name="Name" value="@Model.Name" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Description">Açıklama</label>
+                                <textarea rows="2" name="Description" class="form-control">@Model.Description</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Title">Ana Başlık</label>
+                                <input type="text" name="Title" value="@Model.Title" class="form-control" placeholder="@Model.Title"/>
+                            </div>
+                           
+
+                        </form>
+                        <div class="form-group">
+                            <button type="button" id="UpdateScrapAjax" class="btn btn-info mt-3">Hurda bilgisini güncelle</button>
+                            <div id="ajaxResponseMessage" class="mt-2" style="display: none;"></div>
+                        </div>
+
+
+                        <div class="form-group mt-4">
+                            <label for="ImgUrl">Resim Ekleme</label>
+                            <input type="text" id="ImgUrl" name="ImgUrl" placeholder="Resim linkini yaz" class="form-control" />
+                            <button type="button" id="AddScrapImgBtn" class="btn btn-primary mt-2">Resim Ekle</button>
+                        </div>
+                        <div id="imgResponseMessage" class="mt-2" style="display: none;"></div>           
+                        @if (Model.ScrapImgs != null)
+                        {
+                            <h5 class="mt-4">Mevcut Resimler</h5>
+                            @foreach (var img in Model.ScrapImgs)
+                            {
+                                <div class="d-flex align-items-center mb-2">
+                                    <img src="@img.ImgUrl" alt="Scrap Image" style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;" />
+                                    <button type="button" class="btn btn-danger delete-img-btn" data-img-id="@img.ScrapImgId">Sil</button>
+                                </div>
+                            }
+                        }
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+       $(document).ready(function () {
+        $("#UpdateScrapAjax").click(function (e) {
+            e.preventDefault();
+
+            var formData = $("#updateScrapForm").serialize();
+            $.ajax({
+                url: '@Url.Action("UpdateScrapAjax", "Scrap")',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        $("#ajaxResponseMessage").css("color", "green").text(response.message).show();
+                    } else {
+                        $("#ajaxResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function () {
+                    $("#ajaxResponseMessage").css("color", "red").text("An error occurred while updating the scrap.").show();
+                }
+            });
+        });
+    });
+        $(document).ready(function () {
+        $("#AddScrapImgBtn").click(function () {
+            const scrapId = $("input[name='ScrapId']").val();
+            const imgUrl = $("#ImgUrl").val();
+
+            $.ajax({
+                url: '/Scrap/AddScrapImg',
+                type: 'POST',
+                data: { scrapId: scrapId, imgUrl: imgUrl },
+                success: function (response) {
+                    if (response.success) {
+                        $("#imgResponseMessage").css("color", "green").text(response.message).show();
+                        setTimeout(() => location.reload(), 1000); // Sayfayı yenile
+                    } else {
+                        $("#imgResponseMessage").css("color", "red").text(response.message).show();
+                    }
+                },
+                error: function () {
+                    $("#imgResponseMessage").css("color", "red").text("An error occurred while adding the image.").show();
+                }
+            });
+        });
+    });
+
+           $(document).ready(function () {
+        // Resim silme butonuna tıklanma olayını yakala
+        $(".delete-img-btn").click(function () {
+            var scrapImgId = $(this).data("img-id");
+
+            // Silme işlemini gerçekleştir
+            if (confirm("Are you sure you want to delete this image?")) {
+                $.ajax({
+                    url: '/Scrap/DeleteScrapImg',
+                    type: 'POST',
+                    data: { scrapImgId: scrapImgId },
+                    success: function (response) {
+                        if (response.success) {
+                            // Başarılıysa, ilgili resim elemanını DOM'dan kaldır
+                            $("button[data-img-id='" + scrapImgId + "']").closest(".d-flex").remove();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while deleting the image.");
+                    }
+                });
+            }
+        });
+    });
+
+
+   
+</script>
+

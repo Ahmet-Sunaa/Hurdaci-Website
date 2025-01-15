@@ -1,0 +1,63 @@
+﻿@model List<WebApplication1.DAL.Entities.Scrap>
+@{
+    ViewData["Title"] = "ScrapList";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+
+	<div class="content">
+		<div class="container-fluid">
+			<h4 class="page-title">Hurdalar</h4>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Hurda Güncelleme</div>
+						</div>
+						<div class="card-body">
+						@if (Model != null && Model.Any())
+						{
+							<div class="card-sub">
+								<b>EĞER HURDALARIN ÜSTÜNDEKİ "@Model[0].Title" YAZISINI DEĞİŞTİRMEK İSTİYORSANIZ LÜTFEN EN ÜSTTE BULUNAN HURDANIN ANA BAŞLIK KISMINI DEĞİŞTİRİNİZ !!!!!!!!!</b>
+							</div>
+							<table class="table mt-3">
+								<thead>
+									<tr>
+										<th scope="col">Adı</th>
+										<th scope="col">Açıklaması</th>
+										<th scope="col">Ana Başlık</th>
+										<th scope="col">Sil</th>
+										<th scope="col">Güncelle</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.Name</td>
+											<td>@item.Description</td>
+											<td>@item.Title</td>
+											<td><a href="/Scrap/DeleteScrap/@item.ScrapId" class="btn btn-danger">Sil</a></td>
+											<td><a href="/Scrap/UpdateScrap/@item.ScrapId" class="btn btn-success">Güncelle</a></td>
+										</tr>
+									}
+								
+								
+									
+								</tbody>
+							</table>
+							<a href="/Scrap/CreateScrap/" class="btn btn-primary">Yeni Hurda Ekle</a>
+							}
+						else
+						{
+							<h1>Hurda Bulunamadı</h1>
+							<a href="/Scrap/CreateScrap/" class="btn btn-primary">Yeni Hurda Ekle</a>
+						}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+

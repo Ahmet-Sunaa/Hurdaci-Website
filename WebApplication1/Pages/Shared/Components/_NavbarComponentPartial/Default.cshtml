@@ -1,16 +1,108 @@
-﻿<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-    <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary">WooDY</h2>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+﻿@model List<WebApplication1.DAL.Entities.Contact>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top p-0" style="background-color:#dee2e6;">
+    @if (Model != null && Model.Any())
+    {
+        
+        <div class="header-container">
+            @if(Model[0].LogoUrl!=null)
+            {
+            <div class="header-menu-wrapper">
+                <div class="header-logo">
+                    <a href="">
+                        <img src="@Model[0].LogoUrl" alt="">
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+    }
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="#About" class="nav-item nav-link">Hakkımızda</a>
-            <a href="#Scraps" class="nav-item nav-link">Hurdalar</a>
-            <a href="#Contact" class="nav-item nav-link">İletişim</a>
+            <a href="#About" class="nav-item nav-link" style="font-family:Times New Roman;font-size:25px!important;">Hakkımızda</a>
+            <a href="#Scraps" class="nav-item nav-link" style="font-family:Times New Roman;font-size:25px!important;">Hurdalar</a>
+            <a href="#Contact" class="nav-item nav-link" style="font-family:Times New Roman; font-size:25px!important;">İLETİŞİM</a>
         </div>
-        <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+
     </div>
+
+
+    <!-- WhatsApp butonu -->
+    <div class="fixed-buttons">
+        <a href="https://wa.me/@Model[0].Phone" target="_blank" class="whatsapp-button">
+            <!--?text=Merhaba%20hurda%20fiyati%20hakkinda%20bilgi%20almak%20istiyorum-->
+            <img src="~/img/whatsappicon.png" style="max-width:200px; border-radius:18px;" alt="">
+        </a>
+        <a href="tel:@Model[0].Phone" class="phone-button">
+            <img src="~/img/PhoneIcon.png" style="max-width:200px;border-radius:18px;" alt="">
+        </a>
+    </div>
+
 </nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        const navbarCollapse = document.getElementById('navbarCollapse');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+
+        // Navbar linklerine tıklanınca navbar'ı kapatma
+        navLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (navbarCollapse.classList.contains('show')) {
+                    const collapse = new bootstrap.Collapse(navbarCollapse);
+                    collapse.hide();
+                }
+            });
+        });
+
+
+    });
+</script>
+
+<style>
+    .fixed-buttons {
+        position: fixed;
+        bottom: 20px; /* Sayfanın altından mesafe */
+        right: 100px; /* Sayfanın sağından mesafe */
+        display: flex; /* Elemanları düzenlemek için */
+        flex-direction: column; /* Üst üste dizilim */
+        gap: 40px; /* Butonlar arasındaki boşluk */
+        z-index: 1000; /* Diğer elemanların üstünde görünmesi için */
+    }
+
+        .fixed-buttons a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px; /* Icon büyüklüğü */
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%; /* Daire şekli için */
+            background-color: #25d366; /* WhatsApp rengi */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            transition: transform 0.3s ease;
+        }
+
+            .fixed-buttons a.phone-button {
+                background-color: #007bff; /* Telefon butonunun rengi */
+            }
+
+            .fixed-buttons a:hover {
+                transform: scale(1.1); /* Hover etkisiyle büyüme */
+            }
+
+
+    /* Sayfa içeriği */
+    .content {
+        margin-top: 100px;
+        text-align: center;
+    }
+</style>
+
+
+

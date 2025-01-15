@@ -6,6 +6,7 @@
         public string Title { get; set; }
         public string Phone { get; set; }
         public string Adress { get; set; }
+        public string LogoUrl { get; set; }
         
     }
 }
